@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.py[cod]
+*$py.class
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# File cấu hình biến môi trường local (chứa API Key)
+.env
+.secrets/
+
+# Streamlit cache / logs
+.streamlit/
+
+video
+
+mvp.py
+
+main.py
