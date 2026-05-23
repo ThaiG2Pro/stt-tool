@@ -47,14 +47,18 @@ if uploaded_file is not None:
                         response = client.audio.transcriptions.create(
                             file=(uploaded_file.name, file.read()),
                             model="whisper-large-v3",
-                            response_format="text", 
-                            language="vi"
+                            response_format="verbose_json", 
+                            #language="vi",
+                            temperature=0.0,
+                            prompt="Đây là một video podcast chia sẻ về kiến thức trading, tài chính, đầu tư, quản lý vốn. Hãy chú ý viết đúng chính tả các từ như xác suất, trading, FOMO và thêm dấu chấm câu đầy đủ. Đây là một video podcast nói liền mạch, không được bỏ sót bất kỳ từ nào của người nói."
                         )
                     
                     # Xóa ngay file tạm sau khi gửi xong, giữ máy chủ sạch sẽ
                     os.remove(tmp_file_path)
                     
                     # Lưu kết quả vào session_state
+                    raw_text_list = [segment['text'].strip() for segment in response.segments]
+                    response = " ".join(raw_text_list)
                     st.session_state.raw_text = response
                     
                 except Exception as e:
